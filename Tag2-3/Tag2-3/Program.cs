@@ -10,7 +10,7 @@ namespace Tag2_3
     {
         static void Main(string[] args)
         {
-
+            Game gm = new Game(@"L:\ИИТ\ООП\Git\Tag-2-3\Tag2-3\Tag2-3\file.txt");
         }
     }
 }

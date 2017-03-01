@@ -3,30 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text;
+using System.IO;
 
 namespace Tag2_3
 {
     class Game
     {
         private readonly int counter;
-        private readonly int boardSize;
+        protected readonly int boardSize;
         public int[,] GameBoard;
         public Point[] ValueLocation;
+        // @"L:\ИИТ\ООП\Git\Tag-2-3"
         //I - строка, J - столбец
+        public Game(string filePath)
+        {
+            FileStream file = new FileStream(filePath, FileMode.Open);
+            StreamReader reader = new StreamReader(file);
+            string text = reader.ReadToEnd();
+            Console.WriteLine(text);
+            reader.Close();
+
+            //string[] readText = File.ReadAllLines(filePath);
+            //Console.WriteLine(readText);
+
+            
+        }
         public Game(params int[] value)
         {
+
             this.counter = value.Length;
             foreach (int val in value)
             {
                 if (val < 0)
                 {
                     throw new ArgumentException("Передано недопустимое значение фишки - отрицательное число");
-                    break;
                 }
                 if (val > counter - 1)
                 {
                     throw new ArgumentException("Передано cлишком большое значение фишки");
-                    break;
                 }
             }
 

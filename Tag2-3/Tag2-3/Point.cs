@@ -10,15 +10,11 @@ namespace Tag2_3
     {
         public int I { get; set; }
         public int J { get; set; }
-        public Point(int x, int y)
+        public Point(int i, int j)
         {
-            this.I = x;
-            this.J = y;
+            this.I = i;
+            this.J = j;
         }
-        public Point()
-        {
-            this.I = -1;
-            this.J = -1;
-        }
+
     }
 }

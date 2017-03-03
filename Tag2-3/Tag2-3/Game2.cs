@@ -9,13 +9,10 @@ namespace Tag2_3
     class Game2 : Game
     {
         private readonly int counter;
-        public Game2(params int[] value)
-            : base(value)
+        public Game2(params int[] value) : base(value)
         {
             this.counter = value.Length;
             this.Randomize();
-
-
 
         }
         //public Game2(int counter)

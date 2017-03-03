@@ -80,7 +80,7 @@ namespace Tag2_3
                 return new Point(ValueLocation[value].I, ValueLocation[value].J);
             }
         }
-        private void Swap(int val1, int val2 = 0)
+        protected virtual void Swap(int val1, int val2 = 0)
         {
             int I0 = GetLocation(0).I;
             int J0 = GetLocation(0).J;

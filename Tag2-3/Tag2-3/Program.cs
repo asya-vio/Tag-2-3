@@ -47,7 +47,7 @@ namespace Tag2_3
             //{
             //    Console.Clear();
             //    PrintBoard(game2);
-            //    Console.WriteLine("Ведите номер сдвигаемой фишки");
+            //    Console.WriteLine("Введите номер сдвигаемой фишки");
             //    int value = int.Parse(Console.ReadLine());
 
             //    try
@@ -88,7 +88,7 @@ namespace Tag2_3
             {
                 Console.Clear();
                 PrintBoard(game3);
-                Console.WriteLine("Ведите номер сдвигаемой фишки");
+                Console.WriteLine("Введите номер сдвигаемой фишки");
                 int value = int.Parse(Console.ReadLine());
 
                 try
@@ -107,13 +107,31 @@ namespace Tag2_3
             Console.Clear();
             PrintBoard(game3);
 
-            Console.WriteLine("Игра завершена за {0} шагов", step);
+            Console.WriteLine("Игра завершена за {0} шагов! Поздравляю!", step);
 
             Console.WriteLine("Координаты фишки 15 I = {0}, J = {1} \n", game3.GetLocation(15).I, game3.GetLocation(15).J);
+            Console.ReadLine();
 
+            Console.Clear(); 
+
+            PrintBoard(game3);
             PrintHistory(game3);
 
+            try
+            {
+                game3.RollBack(4);
+            }
+            catch(ArgumentException ex)
+            {
+                Console.WriteLine("{0}", ex);
+            }
+
+            PrintBoard(game3);
+            PrintHistory(game3);
+
+
             Console.ReadLine(); 
+
 
 
         }

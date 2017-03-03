@@ -14,7 +14,7 @@ namespace Tag2_3
         { 
             HistoryClear(History); 
         }
-        protected override void Swap(int val1, int val2 = 0)
+        public override void Swap(int val1, int val2 = 0)
         {
             base.Swap(val1,val2);
 
@@ -30,6 +30,27 @@ namespace Tag2_3
             for (int i = History.Count; i > 0; i--)
             {
                 History.Remove(History[0]);
+            }
+        }
+
+        public void RollBack()
+        {
+            var lastSwap = History.Count - 1;
+            var val1 = History[lastSwap][0];
+            var val2 = History[lastSwap][1];
+
+            base.Swap(val1, val2);
+
+            History.Remove(History[lastSwap]);
+        }
+        public void RollBack(int cnt) 
+        {
+            if (cnt > History.Count - 1)
+                throw new ArgumentException("Вы не сделали так много шагов!");
+            else
+            {
+                for (int i = 0; i < cnt; i++)
+                    RollBack();
             }
         }
 

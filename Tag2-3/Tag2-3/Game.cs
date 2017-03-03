@@ -18,7 +18,7 @@ namespace Tag2_3
         {
             if (Math.Sqrt(value.Length) % 1 != 0)
             {
-                throw new ArgumentException("Количество ячеек не соответствует квадратной игре");
+                throw new ArgumentException("Количество ячеек не соответствует квадратной игре!");
             }
 
             this.counter = value.Length;
@@ -36,7 +36,7 @@ namespace Tag2_3
             }
             if (count != counter - 1)
             {
-                throw new ArgumentException("Введены некорректные данные");
+                throw new ArgumentException("Введены некорректные данные!");
             }
 
             this.boardSize = (int)Math.Sqrt(counter);
@@ -73,14 +73,14 @@ namespace Tag2_3
         {
             if (value > counter - 1 || value < 0)
             {
-                throw new ArgumentException("Передано неверное значение ячейки");
+                throw new ArgumentException("Введено неверное значение ячейки!");
             }
             else
             {
                 return new Point(ValueLocation[value].I, ValueLocation[value].J);
             }
         }
-        protected virtual void Swap(int val1, int val2 = 0)
+        public virtual void Swap(int val1, int val2 = 0)
         {
             int I0 = GetLocation(0).I;
             int J0 = GetLocation(0).J;
@@ -112,7 +112,7 @@ namespace Tag2_3
             if (IsNear(value, 0))
                 Swap(value, 0);
             else
-                throw new ArgumentException("Эту ячейку сдвинуть нельзя");
+                throw new ArgumentException("Эту ячейку сдвинуть нельзя!");
         }
         public static Game ReadCSV(string filePath)
         {

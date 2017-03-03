@@ -96,18 +96,21 @@ namespace Tag2_3
             ValueLocation[val1].I = I0;
             ValueLocation[val1].J = J0;
         }
-        public void Shift(int value)
+        public bool IsNear(int val1, int val2 = 0)
         {
-            int I = GetLocation(value).I;
-            int J = GetLocation(value).J;
-
             int I0 = GetLocation(0).I;
             int J0 = GetLocation(0).J;
 
+            int I = GetLocation(val1).I;
+            int J = GetLocation(val1).J;
 
-            if (I == I0 && (J - J0 == 1 || J0 - J == 1) || J == J0 && (I - I0 == 1 || I0 - I == 1))
+            return (I == I0 && (J - J0 == 1 || J0 - J == 1) || J == J0 && (I - I0 == 1 || I0 - I == 1));
+        }
+        public void Shift(int value)
+        {
+
+            if (IsNear(value, 0))
                 Swap(value, 0);
-
             else
                 throw new ArgumentException("Эту ячейку сдвинуть нельзя");
         }

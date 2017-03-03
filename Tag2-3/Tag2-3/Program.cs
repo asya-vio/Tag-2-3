@@ -23,9 +23,47 @@ namespace Tag2_3
         }
         static void Main(string[] args)
         {
-            int[] gameArr = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,0,15};
-            Game2 g2 = new Game2(16, gameArr);
-            PrintBoard(g2);
+            int[] gameArr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15 };
+            Game2 game2 = null;
+
+            try
+            {
+                game2 = new Game2(gameArr);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("{0} ", ex);
+            }
+
+            int step = 0;
+            while (!game2.IsEnd())
+            {
+                Console.Clear();
+                PrintBoard(game2);
+                Console.WriteLine("Ведите номер сдвигаемой фишки");
+                int value = int.Parse(Console.ReadLine());
+
+                try
+                {
+                    game2.Shift(value);
+                    step++;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine("{0}", ex.Message);
+                    Console.ReadLine();
+                }
+
+            }
+
+            Console.Clear();
+            PrintBoard(game2);
+
+            Console.WriteLine("Игра завершена за {0} шагов", step);
+            Console.ReadLine();
+
+            Console.WriteLine("Координаты фишки 15 I = {0}, J = {1} \n", game2.GetLocation(15).I, game2.GetLocation(15).J);
+
 
         }
     }

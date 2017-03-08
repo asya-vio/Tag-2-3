@@ -53,7 +53,5 @@ namespace Tag2_3
                     RollBack();
             }
         }
-
-
     }
 }

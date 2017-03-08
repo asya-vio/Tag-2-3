@@ -18,17 +18,14 @@ namespace Tag2_3
         private void Randomize()
         {
             Random r = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 150; i++)
             {
                 var val = r.Next(counter);
-                try
+                if (IsNear(val, 0))
                 {
-                    Shift(val);
+                    Swap(val, 0);
                 }
-                catch (ArgumentException)
-                {
-                    continue;
-                }
+                else continue;
             }
         }
 

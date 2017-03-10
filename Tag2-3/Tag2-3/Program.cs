@@ -26,7 +26,7 @@ namespace Tag2_3
         {
             var history = g.CloneHistory();
             for (int i = 0; i < history.Count; i++)
-                Console.WriteLine(String.Format("Шаг {0} сдвиг фишки {1}", i, history[i]));
+                Console.WriteLine(String.Format("Шаг {0} сдвиг фишки {1}", i + 1, history[i]));
         }
 
         static void Main(string[] args)
@@ -74,9 +74,6 @@ namespace Tag2_3
             Console.WriteLine("Координаты фишки 15 I = {0}, J = {1} \n", game3.GetLocation(15).I, game3.GetLocation(15).J);
             Console.ReadLine();
 
-            Console.Clear();
-
-            PrintBoard(game3);
             PrintHistory(game3);
 
             //try

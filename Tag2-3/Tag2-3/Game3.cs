@@ -10,7 +10,8 @@ namespace Tag2_3
     {
         private List<int> History;
 
-        public Game3(params int[] value) : base(value) 
+        public Game3(params int[] value)
+            : base(value)
         {
             History = new List<int>();
         }
@@ -29,13 +30,15 @@ namespace Tag2_3
             }
             else
             {
+                int lastSwap = History.Count - 1;
 
+                base.Shift(History[lastSwap]);
 
                 History.Remove(History[lastSwap]);
             }
         }
 
-        public void RollBack(int cnt) 
+        public void RollBack(int cnt)
         {
             if (cnt > History.Count - 1)
                 throw new ArgumentException("Вы не сделали так много шагов!");
@@ -48,8 +51,7 @@ namespace Tag2_3
 
         public List<int> CloneHistory()
         {
-            var hist = History;
-            return hist;
+            return History;
         }
     }
 }

@@ -16,23 +16,28 @@ namespace Tag2_3
 
         }
 
-        public void Randomize()
+        private int GetRandomValueForShift()
         {
             Random rand = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+
+            List<int> possibleStep = new List<int>();
+
+            Point zero = GetLocation(0);
+
+            if (zero.J > 0) possibleStep.Add(this[zero.I, zero.J - 1]);
+            if (zero.I > 0) possibleStep.Add(this[zero.I - 1, zero.J]);
+            if (zero.I < BoardSize - 1) possibleStep.Add(this[zero.I + 1, zero.J]);
+            if (zero.J < BoardSize - 1) possibleStep.Add(this[zero.I, zero.J + 1]);
+
+            int rnd = rand.Next(possibleStep.Count - 1);
+            int randomValue = possibleStep[rnd];
+            return randomValue;
+        }
+        public void Randomize()
+        {
             for (int i = 0; i < stepsInRandomize; i++)
             {
-                List<int> possibleStep = new List<int>();
-
-                Point zero = GetLocation(0);
-
-                if (zero.J > 0) possibleStep.Add(this[zero.I, zero.J - 1]);
-                if (zero.I > 0) possibleStep.Add(this[zero.I - 1, zero.J]);
-                if (zero.I < BoardSize - 1) possibleStep.Add(this[zero.I + 1, zero.J]);
-                if (zero.J < BoardSize - 1) possibleStep.Add(this[zero.I, zero.J + 1]);
-
-                int rnd = rand.Next(possibleStep.Count - 1);
-                int randomValue = possibleStep[rnd];
-
+                int randomValue = GetRandomValueForShift();
                 Swap(randomValue, 0);
             }
         }

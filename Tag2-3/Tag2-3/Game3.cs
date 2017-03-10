@@ -8,41 +8,33 @@ namespace Tag2_3
 {
     class Game3 : Game2
     {
-        public List<int[]> History= new List<int[]>();
+        private List<int> History;
 
         public Game3(params int[] value) : base(value) 
-        { 
-            HistoryClear(History); 
-        }
-        public override void Swap(int val1, int val2 = 0)
         {
-            base.Swap(val1,val2);
-
-            var histMas = new int[2];
-            histMas[0] = val1;
-            histMas[1] = val2;
-
-            History.Add(histMas);
+            History = new List<int>();
         }
 
-        public void HistoryClear(List<int[]> History)
+        public override void Shift(int value)
         {
-            for (int i = History.Count; i > 0; i--)
-            {
-                History.Remove(History[0]);
-            }
+            base.Shift(value);
+            History.Add(value);
         }
 
         public void RollBack()
         {
-            var lastSwap = History.Count - 1;
-            var val1 = History[lastSwap][0];
-            var val2 = History[lastSwap][1];
+            if (History.Count == 0)
+            {
+                throw new ArgumentException("Вы не сделали еще ни одного шага");
+            }
+            else
+            {
 
-            base.Swap(val1, val2);
 
-            History.Remove(History[lastSwap]);
+                History.Remove(History[lastSwap]);
+            }
         }
+
         public void RollBack(int cnt) 
         {
             if (cnt > History.Count - 1)
@@ -52,6 +44,12 @@ namespace Tag2_3
                 for (int i = 0; i < cnt; i++)
                     RollBack();
             }
+        }
+
+        public List<int> CloneHistory()
+        {
+            var hist = History;
+            return hist;
         }
     }
 }

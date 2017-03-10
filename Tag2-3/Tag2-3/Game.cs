@@ -9,8 +9,8 @@ namespace Tag2_3
 {
     class Game
     {
-        private readonly int counter;
-        public readonly int boardSize;
+        protected readonly int counter;
+        public readonly int BoardSize;
         public int[,] GameBoard;
         public Point[] ValueLocation;
         //I - строка, J - столбец
@@ -23,9 +23,9 @@ namespace Tag2_3
 
             this.counter = value.Length;
             int count = 0;
-            for (int i = 0; i < counter - 1; i++)
+            for (int i = 0; i < counter; i++)
             {
-                for (int j = 0; j < counter - 1; j++)
+                for (int j = 0; j < counter; j++)
                 {
                     if (value[j] == i)
                     {
@@ -34,23 +34,24 @@ namespace Tag2_3
                     }
                 }
             }
-            if (count != counter - 1)
+
+            if (count != counter)
             {
                 throw new ArgumentException("Введены некорректные данные!");
             }
 
-            this.boardSize = (int)Math.Sqrt(counter);
+            this.BoardSize = (int)Math.Sqrt(counter);
 
-            this.GameBoard = new int[boardSize, boardSize];
+            this.GameBoard = new int[BoardSize, BoardSize];
 
             this.ValueLocation = new Point[counter];
 
             count = 0;
-            for (int i = 0; i < boardSize; i++)
+            for (int i = 0; i < BoardSize; i++)
             {
-                for (int j = 0; j < boardSize; j++)
+                for (int j = 0; j < BoardSize; j++)
                 {
-                    this[i, j] = value[count];
+                    GameBoard[i, j] = value[count];
                     ValueLocation[value[count]] = new Point(i, j);
                     count++;
                 }
@@ -62,10 +63,6 @@ namespace Tag2_3
             get
             {
                 return GameBoard[I, J];
-            }
-            set
-            {
-                GameBoard[I, J] = value;
             }
         }
 
@@ -80,7 +77,7 @@ namespace Tag2_3
                 return new Point(ValueLocation[value].I, ValueLocation[value].J);
             }
         }
-        public virtual void Swap(int val1, int val2 = 0)
+        protected void Swap(int val1, int val2 = 0)
         {
             int I0 = GetLocation(0).I;
             int J0 = GetLocation(0).J;
@@ -88,8 +85,8 @@ namespace Tag2_3
             int I = GetLocation(val1).I;
             int J = GetLocation(val1).J;
 
-            this[I, J] = 0;
-            this[I0, J0] = val1;
+            GameBoard[I, J] = 0;
+            GameBoard[I0, J0] = val1;
             ValueLocation[0].I = I;
             ValueLocation[0].J = J;
 
@@ -106,9 +103,8 @@ namespace Tag2_3
 
             return (I == I0 && (J - J0 == 1 || J0 - J == 1) || J == J0 && (I - I0 == 1 || I0 - I == 1));
         }
-        public void Shift(int value)
+        public virtual void Shift(int value)
         {
-
             if (IsNear(value, 0))
                 Swap(value, 0);
             else

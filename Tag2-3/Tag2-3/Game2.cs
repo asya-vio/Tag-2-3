@@ -8,35 +8,45 @@ namespace Tag2_3
 {
     class Game2 : Game
     {
-        private readonly int counter;
-        public Game2(params int[] value) : base(value)
+        private const int stepsInRandomize = 20;
+        public Game2(params int[] value)
+            : base(value)
         {
-            this.counter = value.Length;
             this.Randomize();
 
         }
-        private void Randomize()
+
+        public void Randomize()
         {
-            Random r = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            for (int i = 0; i < 150; i++)
+            Random rand = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            for (int i = 0; i < stepsInRandomize; i++)
             {
-                var val = r.Next(counter);
-                if (IsNear(val, 0))
-                {
-                    Swap(val, 0);
-                }
-                else continue;
+                List<int> possibleStep = new List<int>();
+
+                Point zero = GetLocation(0);
+
+                if (zero.J > 0) possibleStep.Add(this[zero.I, zero.J - 1]);
+                if (zero.I > 0) possibleStep.Add(this[zero.I - 1, zero.J]);
+                if (zero.I < BoardSize - 1) possibleStep.Add(this[zero.I + 1, zero.J]);
+                if (zero.J < BoardSize - 1) possibleStep.Add(this[zero.I, zero.J + 1]);
+
+                int rnd = rand.Next(possibleStep.Count - 1);
+                int randomValue = possibleStep[rnd];
+
+                Swap(randomValue, 0);
             }
         }
 
         public bool IsEnd()
         {
-            for (int i = 0; i < boardSize; i++)
+            int count = 0;
+            for (int i = 0; i < BoardSize; i++)
             {
-                for (int j = 0; j < boardSize; j++)
+                for (int j = 0; j < BoardSize; j++)
                 {
-                    if (this[i, j] != i * boardSize + (j + 1) && (i != boardSize - 1 || j != boardSize - 1))
-
+                    count++;
+                    if (this[i, j] != count && (i != BoardSize - 1 || j != BoardSize - 1) ||
+                        this[i, j] != 0 && i == BoardSize - 1 && j == BoardSize - 1)
                         return false;
                 }
             }
